@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Advice generator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;800&display=swap');
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: 'Manrope', sans-serif;
+    }
+    .attribution { font-size: 11px; text-align: center; margin-top: 10rem;}
+    .attribution a { color: hsl(150, 100%, 66%); }
+    body{
+      background-color: hsl(218, 23%, 16%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    main{
+      width: 100%;
+    }
+    .adivice-card{
+      background-color: hsl(217, 19%, 24%);
+      width: 100%;
+      max-width: 550px;
+      padding: 50px 0px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px hsl(217, 19%, 24%);
+      position: relative;
+    }
+    .adivice-card h2{
+      padding: 0px 50px;
+      font-size: 1rem;
+      color: hsl(150, 100%, 66%);
+      margin-bottom: 1rem;
+    }
+    .adivice-card h1{
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      padding: 10px 50px;
+    }
+    .adivice-card .wrap{
+    position: absolute;
+    width:100%;
+    z-index:10;
+    bottom:-2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: aliceblue; */
+    /* background-color:var(--neon-green); */
+    }
+    .adivice-card picture{
+      padding: 50px;
+    }
+    .adivice-card .wrap button{
+    width:4rem;
+    height:4rem;
+    border-radius:50%;
+    border: none;
+    z-index:10;
+    cursor:pointer;
+    bottom:-2rem;
+    background-color: hsl(150, 100%, 66%);
+    }
+    .adivice-card .wrap button:hover{
+      box-shadow: 0 0 20px hsl(150, 100%, 66%);
+      transition: all 0.5s;
+    }
+    @media screen and (max-width: 600px) {
+      .adivice-card h2{
+        padding: 10px 20px;
+      }
+      .adivice-card picture{
+        padding: 80px 20px;
+      }
+      .adivice-card{
+        max-width: 375px;
+      }
+      .adivice-card h1{
+      font-size: 1.5rem;
+      padding: 20px 20px;
+    }
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div>
+      <div class="adivice-card">
+        <h2 class="advice-1d" id="adiAdviceID">Advice </h2>
+        <h1 id="adiAdvice">"Loading your Advice..."</h1>
+        <picture>
+          <source media="(min-width: 600px)" srcset="images/pattern-divider-desktop.svg">
+          <img src="images/pattern-divider-mobile.svg" alt="divider">
+        </picture>
+        <div class="wrap">
+          <button id="newAdi"><img src="images/icon-dice.svg" alt="newadvice"></button>
+        </div>
+      </div>
+      <div class="attribution">
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+        Coded by <a href="#">Your Name Here</a>.
+      </div>
+    </div>
+  </div>
+    
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    const adiAdvice = document.getElementById('adiAdvice')
+    const adiAdviceID = document.getElementById('adiAdviceID')
+    const newAdi = document.getElementById('newAdi')
+
+    const getAdvice = async() => {
+      const response = await fetch('https://api.adviceslip.com/advice')
+      const data = await response.json()
+      adiAdvice.innerText = `"${data.slip.advice}"`
+      adiAdviceID.textContent = `Advice #${data.slip.id}`
+
+    }
+    getAdvice()
+
+    newAdi.onclick = async() => {
+      // document.body.style.backgroundColor = 'red'
+      const response = await fetch('https://api.adviceslip.com/advice')
+      const data = await response.json()
+      adiAdvice.innerText = `"${data.slip.advice}"`
+      adiAdviceID.textContent = `Advice #${data.slip.id}`
+    }
+  </script>
+</body>
+</html>
